@@ -14,7 +14,7 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  // ...
+  // add
 });
 
 httpServer.listen(3000);
