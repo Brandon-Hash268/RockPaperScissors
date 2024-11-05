@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/login", UserController.login);
-// app.post("/createOrJoinGame", GameController.createOrJoinGame);
+app.post("/createOrJoinGame", GameController.createOrJoinGame);
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
