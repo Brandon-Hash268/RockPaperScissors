@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/login", UserController.login);
+app.get("/users", UserController.getUser);
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -71,8 +72,8 @@ io.on("connection", (socket) => {
       await gameSession.save();
 
       if (result == "Player 1 wins!") {
-        console.log(gameSession.PlayerId1,"PLAYERRR ID");
-        
+        console.log(gameSession.PlayerId1, "PLAYERRR ID");
+
         await User.increment("win", {
           by: 1,
           where: { id: gameSession.PlayerId1 },
@@ -98,9 +99,9 @@ io.on("connection", (socket) => {
     }
     console.log(gameSession);
   });
-  socket.on("disconnect",()=>{
-   //update player state on database 
-  })
+  socket.on("disconnect", () => {
+    //update player state on database
+  });
 });
 
 app.use(errorHandler);
