@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
+import logo from "../assets/RSP.png";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ export default function LoginPage() {
     try {
       const { data } = await axios.post("http://localhost:3000/login", form);
       localStorage.setItem("userName", data.user.userName);
-      console.log(data)
+      console.log(data);
       console.log("login success");
       navigate("/");
     } catch (err) {
@@ -38,7 +40,9 @@ export default function LoginPage() {
         <div className="col-md-6 mx-auto">
           <div className="card shadow-sm">
             <div className="card-body">
-              <h2 className="text-center mb-2">Login to play Janken Game</h2>
+              <h2 className="text-center mb-2">Login to play <img src={logo} alt="" style={{ width: "50px" }} /> </h2>
+                
+
               <p className="text-center small mb-0">じゃんけん</p>
 
               <form onSubmit={handleLogin}>
@@ -53,10 +57,10 @@ export default function LoginPage() {
                     onChange={handleInput}
                     required
                   />
+                  <button type="submit" className="btn btn-primary w-100 mt-3">
+                    Login
+                  </button>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">
-                  Login
-                </button>
               </form>
             </div>
           </div>
