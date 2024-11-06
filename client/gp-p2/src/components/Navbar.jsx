@@ -1,6 +1,6 @@
 import axios from "axios";
 import logo from "../assets/Logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
   const getUser = async () => {
     try {
       const { data } = await axios.get("http://localhost:3000/users/"+id);
-      console.log(data.win, "dataaaaaaa")
+      // console.log(data.win, "dataaaaaaa")
       setUser(data);
     } catch (err) {
       console.log(err);
@@ -24,7 +24,7 @@ const Navbar = () => {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('userName')
+    localStorage.removeItem('id')
     navigate('/login')
   }
 

@@ -2,9 +2,12 @@ import { useNavigate } from "react-router-dom";
 import background from "../assets/Background_Space.webp";
 import rsp from "../assets/RSP.png";
 import Navbar from "../components/Navbar";
+import { useLanguage } from "../context/LanguageContext";
 
 const HomePage = () => {
   const navigate = useNavigate()
+  const { language, setLanguage, texts } = useLanguage(); 
+  const selectedText = texts[language]
   
 
   const play = () => {
@@ -33,12 +36,10 @@ const HomePage = () => {
                 style={{ fontSize: "48px" }}
                 className="fw-bold font-monospace mb-5"
               >
-                Rock <br />
-                <span>Scissors</span> <br />
-                <span>Paper</span>
+                {selectedText.description}
               </h1>
               <button onClick={play} className="button-play">
-                Play Game
+              {selectedText.play}
               </button>
             </div>
 

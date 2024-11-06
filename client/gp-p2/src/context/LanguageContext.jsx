@@ -9,36 +9,42 @@ const texts = {
     placeholder: "Enter your username",
     button: "Login",
     description: "Rock Paper Scissors",
+    play: "Play Game"
   },
   jp: {
-    title: "ログインしてプレイ",
-    placeholder: "ユーザー名を入力",
-    button: "ログイン",
-    description: "じゃんけん",
+    title: "Roguin shite purei",
+    placeholder: "Yūzā-mei o nyūryoku",
+    button: "Roguin",
+    description: "Jankenpon",
+    play: "Gēmu o purei suru"
   },
   fr: {
     title: "Connectez-vous pour jouer",
     placeholder: "Entrez votre nom d'utilisateur",
     button: "Se connecter",
     description: "Pierre Papier Ciseaux",
+    play: "Jouer au jeu"
   },
   ar: {
     title: "قم بتسجيل الدخول للعب",
     placeholder: "أدخل اسم المستخدم",
     button: "تسجيل الدخول",
     description: "حجر ورقة مقص",
+    play: "العب لعبة"
   },
   id: {
     title: "Masuk untuk bermain",
     placeholder: "Masukkan nama pengguna",
     button: "Masuk",
     description: "Batu Gunting Kertas",
+    play: "Mainkan"
   },
   jv: {
     title: "Melebu kanggo dolanan",
     placeholder: "Lebokke Jeneng Pelakon",
     button: "Melebu",
     description: "Batu Gunting Kertas",
+    play: "gaspol"
   }
 };
 
