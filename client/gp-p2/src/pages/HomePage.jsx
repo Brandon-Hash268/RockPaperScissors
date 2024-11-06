@@ -5,11 +5,16 @@ import Navbar from "../components/Navbar";
 import { socket } from "../socket";
 
 const HomePage = () => {
-  const navigate = useNavigate()
-  
-  const play = () =>{
-    navigate("/battle")
-  }
+  const navigate = useNavigate();
+
+  const getUser = () => {
+    return socket.user || { name: "Guest" };
+  };
+
+  const play = () => {
+    navigate("/battle");
+  };
+
   return (
     <>
       <Navbar />
@@ -37,7 +42,10 @@ const HomePage = () => {
                 <span>Scissors</span> <br />
                 <span>Paper</span>
               </h1>
-              <button onClick={play} className="button-play">Play Game</button>
+              <p>Welcome, {getUser().name}!</p>
+              <button onClick={play} className="button-play">
+                Play Game
+              </button>
             </div>
 
             <div>
