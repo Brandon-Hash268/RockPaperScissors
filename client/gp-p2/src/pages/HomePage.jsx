@@ -2,19 +2,30 @@ import { useNavigate } from "react-router-dom";
 import background from "../assets/Background_Space.webp";
 import rsp from "../assets/RSP.png";
 import Navbar from "../components/Navbar";
-import { socket } from "../socket";
+import axios from "axios";
+import { useEffect, useState } from "react"; //
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const id = localStorage.getItem("id");
+  const [user, setUser] = useState("");
 
-  const getUser = () => {
-    return socket.user || { name: "Guest" };
+  const getUser = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:3000/users", id);
+      setUser(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const play = () => {
     navigate("/battle");
   };
-
   return (
     <>
       <Navbar />
@@ -42,7 +53,6 @@ const HomePage = () => {
                 <span>Scissors</span> <br />
                 <span>Paper</span>
               </h1>
-              <p>Welcome, {getUser().name}!</p>
               <button onClick={play} className="button-play">
                 Play Game
               </button>
