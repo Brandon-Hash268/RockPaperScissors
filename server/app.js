@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/login", UserController.login);
-app.get("/users", UserController.getUser);
+app.get("/users/:id", UserController.getUser);
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
