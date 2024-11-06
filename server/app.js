@@ -7,6 +7,7 @@ const UserController = require("./controller/userController");
 const errorHandler = require("./middlewares/errorHandler");
 const { Op } = require("sequelize");
 const calculateResult = require("./helpers/calculateResult");
+const gamesession = require("./models/gamesession");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -35,9 +36,9 @@ io.on("connection", (socket) => {
     });
     if (!gameSession) {
       gameSession = await GameSession.create({ PlayerId1: userId });
-      await gameSession.save();
-      io.emit("playerStatus", "Waiting for Other Player");
       socket.emit("player", "Player 1");
+      io.emit("playerStatus", "Waiting for Other Player");
+      await gameSession.save();
     } else {
       if (userId != gameSession.PlayerId1) {
         await gameSession.update({ PlayerId2: Number(userId) });
@@ -45,14 +46,15 @@ io.on("connection", (socket) => {
         socket.emit("player", "Player 2");
         await gameSession.save();
       } else {
-        console.log("denied");
+        socket.emit("player", "Player 1");
+        console.log("denieddddddddddddddd");
       }
     }
     console.log(gameSession);
   });
 
   socket.on("playerMove", async ({ move, userId }) => {
-    console.log(move, "MOVEEEEEEEEE");
+    // console.log(move, "MOVEEEEEEEEE");
 
     if (gameSession.PlayerId1 == userId) {
       await gameSession.update({ PlayerMove1: move });
@@ -82,7 +84,7 @@ io.on("connection", (socket) => {
           by: 1,
           where: { id: gameSession.PlayerId2 },
         });
-      } else {
+      } else if (result == "Player 2 wins!") {
         await User.increment("win", {
           by: 1,
           where: { id: gameSession.PlayerId2 },
@@ -94,12 +96,28 @@ io.on("connection", (socket) => {
       }
 
       io.emit("resultGame", result); // Changed from socket.emit to io.emit for both players
+      io.emit("moves", {
+        move1: gameSession.PlayerMove1,
+        move2: gameSession.PlayerMove2,
+      });
+      // console.log(gameSession.id, "SESIONNNNNNNNNN");
+      // try {
+      //   await GameSession.destroy({ where: { id: gameSession.id } });
+      //   console.log("success!!!");
+      // } catch (error) {
+      //   console.log("🚀 ~ socket.on ~ error:", error);
+      // }
+      gameSession.PlayerId1 = null;
+      gameSession = null;
     } else {
       socket.broadcast.emit("waiting", "Another Player has chosen their move");
     }
-    console.log(gameSession);
   });
-  socket.on("disconnect", () => {
+  console.log(gameSession);
+  socket.on("disconnect", async () => {
+    if (gameSession) {
+      gameSession.PlayerId1 = null;
+    }
     //update player state on database
   });
 });
