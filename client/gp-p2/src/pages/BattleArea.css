@@ -1,0 +1,41 @@
+/* Animasi tangan berayun */
+@keyframes handShake {
+  0% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+/* Animasi terus bergerak pada pilihan yang dipilih */
+@keyframes continuousShake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+
+/* Animasi bergerak saat belum dipilih */
+.suit-animation {
+  animation: handShake 0.4s infinite;
+}
+
+/* Animasi terus bergerak pada pilihan yang dipilih */
+.selected-move {
+  animation: continuousShake 1s infinite;
+}
