@@ -26,7 +26,8 @@ class UserController {
   }
   static async getUser(req, res, next) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
+      console.log(req.params)
       const user = await User.findByPk(id);
 
       if (!user) {
@@ -35,6 +36,7 @@ class UserController {
 
       res.status(200).json(user);
     } catch (err) {
+      console.log("🚀 ~ UserController ~ getUser ~ err:", err)
       next(err);
     }
   }

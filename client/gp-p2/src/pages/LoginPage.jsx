@@ -27,7 +27,7 @@ export default function LoginPage() {
     try {
       const { data } = await axios.post("http://localhost:3000/login", form);
       localStorage.setItem("id", data.user.id);
-      console.log(data);
+      // console.log(data);
       console.log("login success");
       navigate("/");
     } catch (err) {

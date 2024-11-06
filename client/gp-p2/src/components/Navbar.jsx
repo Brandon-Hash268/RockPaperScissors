@@ -1,8 +1,27 @@
+import axios from "axios";
 import logo from "../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate()
+  const id = localStorage.getItem("id");
+  const [user, setUser] = useState("");
+  console.log(id, ' cek  id')
+
+  const getUser = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:3000/users/"+id);
+      console.log(data.win, "dataaaaaaa")
+      setUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const logout = () => {
     localStorage.removeItem('userName')
@@ -20,22 +39,18 @@ const Navbar = () => {
       }}
       className="row px-3 py-2 align-items-center shadow-lg text-light"
     >
+      <div className="d-flex justify-content-between">
+
       <div className="col-4">
         <img style={{ width: "64px" }} src={logo} alt="" />
       </div>
-      <div
-        style={{ height: "100%" }}
-        className="d-flex justify-content-center align-items-center column-gap-3 col-4"
-      >
-        <Link className="text-light" to={"/"}>
-          Home
-        </Link>
-        <Link className="text-light" to={"#"}>
-          Play Game
-        </Link>
+
+      <div className="d-flex justify-content-center gap-3 align-items-center">
+        <h1 className="text-success">W : {user.win}</h1>
+        <h1 className="text-danger">L : {user.lose}</h1>
       </div>
+
       <div className="d-flex justify-content-end col-4">
-        <button className="bg-info rounded p-3 text-light">Login</button>
         <button
         onClick={logout}
           style={{ marginLeft: "10px" }}
@@ -43,6 +58,7 @@ const Navbar = () => {
         >
           Logout
         </button>
+      </div>
       </div>
     </div>
   );
