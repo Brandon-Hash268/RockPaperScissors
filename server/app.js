@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV !== "production") {
+	require("dotenv").config();
+}
+
+
 const { GameSession, User } = require("./models");
 const express = require("express");
 const { createServer } = require("http");
@@ -124,4 +129,4 @@ io.on("connection", (socket) => {
 
 app.use(errorHandler);
 
-httpServer.listen(3000);
+httpServer.listen(process.env.PORT || 3000);
