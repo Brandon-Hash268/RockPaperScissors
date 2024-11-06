@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.GameSession,{foreignKey:"PlayerId1"})
+      User.hasMany(models.GameSession,{foreignKey:"PlayerId2"})
     }
   }
   User.init(

@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import background from "../assets/Background_Space.webp";
 import rsp from "../assets/RSP.png";
 import Navbar from "../components/Navbar";
+import { socket } from "../socket";
 
 const HomePage = () => {
+  const navigate = useNavigate()
+  
+  const play = () =>{
+    navigate("/battle")
+  }
   return (
     <>
       <Navbar />
@@ -30,7 +37,7 @@ const HomePage = () => {
                 <span>Scissors</span> <br />
                 <span>Paper</span>
               </h1>
-              <button className="button-play">Play Game</button>
+              <button onClick={play} className="button-play">Play Game</button>
             </div>
 
             <div>

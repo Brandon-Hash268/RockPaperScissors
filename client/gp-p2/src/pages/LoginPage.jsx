@@ -24,7 +24,7 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const { data } = await axios.post("http://localhost:3000/login", form);
-      localStorage.setItem("userName", data.user.userName);
+      localStorage.setItem("id", data.user.id);
       console.log(data);
       console.log("login success");
       navigate("/");
